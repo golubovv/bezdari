@@ -1,5 +1,17 @@
 {% extends 'parser/base.html' %}
 
 {% block content %}
-
+<div class="detail_event">
+    <div class="detail_event_image">
+        <a href="#desc">
+        <img src="{{ event.image }}">
+        </a>
+    </div>
+    <div class="detail_event_description" id="desc">
+        <h2>{{ event.title }}<br>
+        {{ event.date }}<br>
+        {{ event.location }}<br></h2>
+        {{ event.content }}
+    </div>
+</div>
 {% endblock %}

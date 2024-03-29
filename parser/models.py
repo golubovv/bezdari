@@ -5,6 +5,7 @@ class Event(models.Model):
     content = models.TextField()
     date = models.CharField(max_length=50)
     location = models.CharField(max_length=100)
+    image = models.URLField()
 
     def __str__(self):
         return f'{self.title}, {self.location}'

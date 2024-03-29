@@ -23,6 +23,8 @@ class EventsListView(ListView):
 class EventDetailView(DetailView):
     template_name = 'parser/detail_event.html'
     model = Event
+    pk_url_kwarg = 'event_pk'
+    context_object_name = 'event'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

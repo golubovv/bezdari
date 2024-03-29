@@ -28,7 +28,7 @@ def test_parse():
         dict_event['title'] = item_title
         dict_event['date'] = item_date_loc[0]
         dict_event['content'] = item_content
-        dict_event['img'] = item_img
+        dict_event['image'] = item_img
         dict_event['location'] = item_date_loc[1]
 
         all_event_list.append(dict_event)
