@@ -1,0 +1,22 @@
+{% extends 'parser/base.html' %}
+
+{% block content %}
+<header>
+
+</header>
+<main>
+    <section class="events">
+        {% for event in events %}
+        <div class="event">
+            <h1>{{ event.title }}</h1>
+            <p>
+                {{ event.date }}<br>
+                {{ event.content }}<br>
+                {{ event.location }}<br>
+            </p>
+        </div>
+        {% endfor %}
+    </section>
+</main>
+
+{% endblock %}
