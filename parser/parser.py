@@ -64,14 +64,16 @@ def perser_kassy():
         
         count = 0
         for item in all_class_content:
-            data_dist = {}
+            data_dict = {}
             item_title = item.find("a").text
             item_href = "https://perm.kassy.ru" + item.find("a").get("href")
             
-            data_dist['title'] = item_title
-            data_dist['img'] = img_list[count]
+            data_dict['title'] = item_title
+            data_dict['img'] = img_list[count]
+            data_dict['href'] = item_href # ссылку я добавил для себя, чтобы дальше работать со сборкой инфы
             
-            all_event_list.append(data_dist)
+            all_event_list.append(data_dict)
+    
     
     with open("all_event_list.json", "w", encoding="utf-8-sig") as file:
         json.dump(all_event_list, file, indent=4, ensure_ascii=False)
