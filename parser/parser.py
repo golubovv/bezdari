@@ -23,13 +23,13 @@ def test_parse():
         item_title = item.find(class_="sueta-afisha-title").text
         item_content = item.find(class_="sueta-afisha-description").text
         item_img = "https://iceshow-perm.ru/" + str(item.find("img").get("src"))
-        item_date = item_date.split(",")
+        item_date_loc = item_date.split(",")
 
         dict_event['title'] = item_title
-        dict_event['date'] = item_date[0]
+        dict_event['date'] = item_date_loc[0]
         dict_event['content'] = item_content
         dict_event['img'] = item_img
-        dict_event['location'] = item_date[1]
+        dict_event['location'] = item_date_loc[1]
 
         all_event_list.append(dict_event)
 
