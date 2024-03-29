@@ -76,7 +76,8 @@ a {
 
 .detail_event:hover .detail_event_image {
     margin-top: -100vh;
-    transition-duration: 1s;
+    transition-duration: 3s;
+    transition-delay: .2s;
 }
 
 .detail_event_description {

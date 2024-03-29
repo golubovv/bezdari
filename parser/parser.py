@@ -37,7 +37,7 @@ def parser_iceShow():
     return all_event_list
 
 
-def perser_kassy():
+def parser_kassy():
     url_kassy = "https://perm.kassy.ru/"
     
     headers = {
@@ -69,13 +69,7 @@ def perser_kassy():
             item_href = "https://perm.kassy.ru" + item.find("a").get("href")
             
             data_dict['title'] = item_title
-            data_dict['img'] = img_list[count]
+            data_dict['image'] = img_list[count]
             data_dict['href'] = item_href # ссылку я добавил для себя, чтобы дальше работать со сборкой инфы
             
             all_event_list.append(data_dict)
-    
-    
-    with open("all_event_list.json", "w", encoding="utf-8-sig") as file:
-        json.dump(all_event_list, file, indent=4, ensure_ascii=False)
-        
-perser_kassy()

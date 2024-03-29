@@ -1,13 +1,14 @@
 from django.views.generic import ListView, DetailView
 
 from .models import Event
-from .parser import parser_iceShow
+from .parser import parser_iceShow, parser_kassy
 
 class EventsListView(ListView):
     template_name = 'parser/events.html'
     model = Event
 
     events = parser_iceShow()
+    print(parser_kassy())
     for event in events:
         if Event.objects.filter(**event) not in Event.objects.all():
             Event.objects.create(**event)
