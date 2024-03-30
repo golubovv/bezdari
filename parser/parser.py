@@ -113,10 +113,10 @@ def parser_kassy():
             event['location'] = item_loc
             
             kassy_event.append(event)
-            
-    with open("all_event_list.json", "w", encoding="utf-8-sig") as file:
-        json.dump(kassy_event, file, indent=4, ensure_ascii=False)
-        
-    return kassy_event
 
-parser_kassy()
+            events = []
+            for event in kassy_event:
+                if event not in events:
+                    events.append(event)
+        
+    return events

@@ -8,6 +8,22 @@
     <link rel="stylesheet" href={% static "css/styles.css" %}>
     <title>{{title}}</title>
 </head>
+<header>
+    <a href="{% url 'main' %}">
+        <div class="logo"></div>
+    </a>
+    <nav>
+        <form method="get" id="search_form">
+            {% csrf_token %}
+            <input type="text" name="search_by" maxlength="100" required id="id_search_by" placeholder="Поиск">
+            <input type="text" name="category" value="{{request.GET.category}}" style="display: none;">
+        </form>
+        <a href="{% url 'main' %}">Все</a>
+        <a href="{% url 'main' %}?category=theater">Театр</a>
+        <a href="{% url 'main' %}?category=cinema">Кино</a>
+    </nav>
+
+</header>
     {% block content %}
 
     {% endblock %}

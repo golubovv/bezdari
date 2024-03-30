@@ -2,20 +2,6 @@
 
 {% block content %}
 <body>
-<header>
-    <div class="logo"></div>
-    <nav>
-        <form method="get" id="search_form">
-            {% csrf_token %}
-            <input type="text" name="search_by" maxlength="100" required id="id_search_by">
-            <input type="text" name="category" value="{{request.GET.category}}" style="display: none;">
-        </form>
-        <a href="{% url 'main' %}">Все</a>
-        <a href="{% url 'main' %}?category=theater">Театр</a>
-        <a href="{% url 'main' %}?category=cinema">Кино</a>
-    </nav>
-
-</header>
 <main>
     <section class="events">
         {% for event in events %}
@@ -25,9 +11,7 @@
                 <img src="{{ event.image }}">
             </div>
             <div class="event_description">
-                {{ event.title }}<br>
-                {{ event.date }}<br>
-                {{ event.location }}
+                {{ event.title }}
             </div>
         </div>
         </a>
@@ -47,15 +31,13 @@
                     for(i in events) {
                         let event = 
                         `
-                        <a href="127.0.0.1:8000/event/${events[i].id}">
+                        <a href="event/${events[i].id}">
                         <div class="event">
                             <div class="event_image">
                                 <img src="${ events[i].image }">
                             </div>
                             <div class="event_description">
                                 ${ events[i].title }<br>
-                                ${ events[i].date }<br>
-                                ${ events[i].location }
                             </div>
                         </div>
                         </a>
