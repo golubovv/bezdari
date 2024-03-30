@@ -17,7 +17,7 @@ def parser_iceShow():
     soup = BeautifulSoup(src, "lxml")
     all_class_event = soup.find_all(class_="sueta-afisha-element")
 
-    all_event_list = []
+    iceshow_event = []
     for item in all_class_event:
         dict_event = {}
         item_date = item.find(class_="sueta-afisha-date").text
@@ -32,9 +32,9 @@ def parser_iceShow():
         dict_event['image'] = item_img
         dict_event['location'] = item_date_loc[1]
 
-        all_event_list.append(dict_event)
+        iceshow_event.append(dict_event)
 
-    return all_event_list
+    return iceshow_event
 
 
 def parser_kassy():
@@ -52,6 +52,7 @@ def parser_kassy():
     all_event = soup.find_all("li")
     
     all_event_list = []
+    
     for event in all_event:
         
         all_class_img = event.find_all(class_="img")
@@ -70,6 +71,52 @@ def parser_kassy():
             
             data_dict['title'] = item_title
             data_dict['image'] = img_list[count]
-            data_dict['href'] = item_href # ссылку я добавил для себя, чтобы дальше работать со сборкой инфы
+            data_dict['href'] = item_href 
             
             all_event_list.append(data_dict)
+            
+    kassy_event = []
+    l = []
+    for event in all_event_list:
+        req = requests.get(url=event.get('href'), headers=headers)
+        src = req.text
+        
+        soup = BeautifulSoup(src, "lxml")
+        
+        content = soup.find(class_="fw-light").text
+        event['content'] = content
+        
+        kassy_event.append(event)
+        
+    for event in all_event_list:
+        req = requests.get(url=event.get('href'), headers=headers)
+        src = req.text
+        
+        soup = BeautifulSoup(src, "lxml")
+        
+        table = soup.find(class_="table repertuar")
+        l.append(table)
+        for item in l:
+            if item == None:
+                continue
+            else:
+                table = item.find("tbody").find_all("tr")
+        
+        for item in table:
+            item_td = item.find("td", class_="descr")
+            
+            if item_td != None:
+                item_loc = item_td.find("a").text
+            else:
+                continue
+            
+            event['location'] = item_loc
+            
+            kassy_event.append(event)
+            
+    with open("all_event_list.json", "w", encoding="utf-8-sig") as file:
+        json.dump(kassy_event, file, indent=4, ensure_ascii=False)
+        
+    return kassy_event
+
+parser_kassy()
