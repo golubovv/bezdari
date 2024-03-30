@@ -119,4 +119,36 @@ def parser_kassy():
         
     return kassy_event
 
-parser_kassy()
+
+def parser_afisha():
+    url = "https://www.kinopoisk.ru/afisha/new/city/432/"
+    
+    headers = {
+        "Accept":"*/*",
+        "User-Agent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0"
+    }
+    
+    req = requests.get(url=url, headers=headers)
+    src = req.text
+    
+    soup = BeautifulSoup(src, "lxml")
+    all_event_cinema = soup.find(class_="filmsListNew js-rum-hero").find_all(class_="item")
+    
+    event_afisha = []
+    for item in all_event_cinema:
+        dict_event = {}
+        item_href = "https://www.kinopoisk.ru/afisha/new/city/432/"+item.find(class_="name").find("a").get("href")
+        item_img = item.find(class_="poster").find("img").get("src")
+        item_title = item.find(class_="name").find("a").text
+        item_gray = item.find_next(class_="gray").text
+        
+        dict_event['title'] = item_title
+        dict_event['img'] = item_img
+        dict_event['href'] = item_href
+        dict_event['gray'] = item_gray
+        
+        event_afisha.append(dict_event)
+        
+    return dict_event
+
+parser_afisha()
