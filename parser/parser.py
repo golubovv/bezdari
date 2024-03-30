@@ -27,7 +27,6 @@ def parser_iceShow():
         item_date_loc = item_date.split(",")
 
         dict_event['title'] = item_title
-        dict_event['date'] = item_date_loc[0]
         dict_event['content'] = item_content
         dict_event['image'] = item_img
         dict_event['location'] = item_date_loc[1]
@@ -121,7 +120,7 @@ def parser_kassy():
         
     return events
 
-def parser_afisha():
+def parser_kinopoisk():
     url = "https://www.kinopoisk.ru/afisha/new/city/432/"
     
     headers = {
@@ -144,9 +143,9 @@ def parser_afisha():
         item_gray = item.find_next(class_="gray").text
         
         dict_event['title'] = item_title
-        dict_event['img'] = item_img
+        dict_event['image'] = item_img
         dict_event['href'] = item_href
-        dict_event['gray'] = item_gray
+        dict_event['content'] = item_gray
         
         event_afisha.append(dict_event)
 
