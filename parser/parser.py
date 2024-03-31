@@ -1,7 +1,6 @@
 import requests, json
 from bs4 import BeautifulSoup
 
-# url_cinema = "https://afisha.yandex.ru/perm/selections/cinema-today?utm_source=direct_search&utm_medium=paid_performance&utm_campaign=95779077%7CMSCAMP-60_%5BAF-PT%5D_%7BWS%3AS%7D_RU-50_goal-REV_Category-general-Broad-main&utm_term=%D0%BA%D1%83%D0%B4%D0%B0%20%D0%BF%D0%BE%D0%B9%D1%82%D0%B8&utm_content=INTid%7C0100000047072603441_47072603441%7Ccid%7C95779077%7Cgid%7C5283339641%7Caid%7C14993620208%7Cpos%7Cpremium1%7Csrc%7Csearch_none%7Cdvc%7Cdesktop%7Cevid%7C0%7Cretid%7C0"
 
 def parser_iceShow():
     url_icehow = "https://iceshow-perm.ru/"
@@ -27,6 +26,7 @@ def parser_iceShow():
         item_date_loc = item_date.split(",")
 
         dict_event['title'] = item_title
+        dict_event['date'] = item_date_loc[0]
         dict_event['content'] = item_content
         dict_event['image'] = item_img
         dict_event['location'] = item_date_loc[1]
@@ -112,13 +112,14 @@ def parser_kassy():
             event['location'] = item_loc
             
             kassy_event.append(event)
-
+            
             events = []
             for event in kassy_event:
                 if event not in events:
                     events.append(event)
         
     return events
+
 
 def parser_kinopoisk():
     url = "https://www.kinopoisk.ru/afisha/new/city/432/"
@@ -137,7 +138,7 @@ def parser_kinopoisk():
     event_afisha = []
     for item in all_event_cinema:
         dict_event = {}
-        item_href = "https://www.kinopoisk.ru/afisha/new/city/432/"+item.find(class_="name").find("a").get("href")
+        item_href = "https://www.kinopoisk.ru"+item.find(class_="name").find("a").get("href")
         item_img = item.find(class_="poster").find("img").get("src")
         item_title = item.find(class_="name").find("a").text
         item_gray = item.find_next(class_="gray").text
@@ -148,11 +149,11 @@ def parser_kinopoisk():
         dict_event['content'] = item_gray
         
         event_afisha.append(dict_event)
-
+    
     events = []
     for event in event_afisha:
         if event not in events:
             events.append(event)
-        
+            
     return events
 
