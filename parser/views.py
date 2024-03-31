@@ -29,7 +29,7 @@ class EventDetailView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['title'] = 'Событие'    #Потом сделаем динамическую генерацию с названием события
+        context['title'] = self.get_object().title
 
         return context
     
@@ -42,7 +42,6 @@ def search_events(request):
             events = Event.objects.filter(title__icontains=search_by, category__slug=category)
         else: 
             events = Event.objects.filter(title__icontains=search_by)
-            print(1)
     else: 
         if category != "":
             events = Event.objects.filter(category__slug=category)

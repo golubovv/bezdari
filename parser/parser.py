@@ -26,14 +26,18 @@ def parser_iceShow():
         item_date_loc = item_date.split(",")
 
         dict_event['title'] = item_title
-        dict_event['date'] = item_date_loc[0]
         dict_event['content'] = item_content
         dict_event['image'] = item_img
         dict_event['location'] = item_date_loc[1]
 
         iceshow_event.append(dict_event)
+    
+    events = []
+    for event in iceshow_event:
+        if event not in events:
+            events.append(event)
 
-    return iceshow_event
+    return events
 
 
 def parser_kassy():
